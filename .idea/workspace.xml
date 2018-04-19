@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9fe6d39e-a7c6-4fb2-b699-d3436c67b2a7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_3_6_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/be-job/be-job.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/be-provider/be-provider.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/be-web/be-web.iml" />
-    </list>
+    <list default="true" id="9fe6d39e-a7c6-4fb2-b699-d3436c67b2a7" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/be-job/target/" />
     <ignored path="$PROJECT_DIR$/be-provider/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -440,12 +434,12 @@
       <workItem from="1524016983512" duration="2619000" />
       <workItem from="1524055679992" duration="2280000" />
       <workItem from="1524106082058" duration="5277000" />
-      <workItem from="1524122839975" duration="1594000" />
+      <workItem from="1524122839975" duration="1924000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123611000" />
+    <option name="totallyTimeSpent" value="123941000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1911" y="-9" width="1938" height="1058" extended-state="6" />
