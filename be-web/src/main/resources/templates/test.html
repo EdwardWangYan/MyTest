@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+    <head th:include="/common/common_head :: commonHeader('首页')"></head>
+    <link th:href="@{assets/global/plugins/layer/skin/default/layer-custom.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" th:href="@{assets/global/plugins/bootstrap-addtabs/bootstrap.addtabs.css}" type="text/css" media="screen" />
+    <link rel="StyleSheet" href="dtree.css" type="text/css" />
+    　　　　　　　 <script type="text/javascript" src="dtree.js"></script>
+    　 <body>
+    　　　　　　 <div class='dtree'>
+        <p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
+        　　　　　　 </div>
+    　　　 </body>
+
+</html>

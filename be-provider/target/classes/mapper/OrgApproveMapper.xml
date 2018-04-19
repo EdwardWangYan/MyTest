@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.OrgApproveMapper">
+
+    <resultMap id="getDetailMap" type="com.ikentop.biz.provider.model.dto.OrgApproveDetailInfo" autoMapping="true">
+        <association property="permitPicInfo" javaType="com.ikentop.biz.model.dto.ImageRecordInfo"
+                     autoMapping="true">
+            <id property="imageId" column="imageId"/>
+        </association>
+    </resultMap>
+    <select id="getDetail" resultMap="getDetailMap">
+        SELECT
+            a.*,
+            im.*,
+            im.id AS imageId
+        FROM pat_org_approve_info a
+            LEFT JOIN comm_image_record im
+                ON im.id = a.permit_pic_id
+        WHERE a.id = #{id} AND a.deleted_flag = 0
+    </select>
+</mapper>

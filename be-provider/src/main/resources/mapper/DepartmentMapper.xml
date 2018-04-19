@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.DepartmentMapper">
+
+    <select id="getDetail" resultType="com.ikentop.biz.provider.model.dto.DepartmentDetailInfo">
+        SELECT
+            d1.*,
+            d2.dept_name AS parentName
+        FROM pat_org_dept_info d1
+            LEFT JOIN pat_org_dept_info d2
+            ON d1.parent_id = d2.id
+        WHERE d1.id = #{param1} AND d1.org_id = #{param2}
+    </select>
+</mapper>

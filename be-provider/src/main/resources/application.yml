@@ -1,0 +1,89 @@
+server:
+  port: 9003
+
+spring:
+  application:
+    name: emp
+  profiles:
+    active: dev
+  datasource:
+      type: com.zaxxer.hikari.HikariDataSource
+      driverClassName: com.mysql.jdbc.Driver
+      #数据库连接在具体的环境对应的profile中配置
+#      url: jdbc:mysql://172.10.10.69:3306/emp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+#      username: ikentop
+#      password: 18002503040
+      hikari:
+        connection-test-query: SELECT 1 FROM DUAL
+        minimum-idle: 3
+        maximum-pool-size: 24
+        pool-name: ${spring.application.name}-CP
+        idle-timeout: 10000
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        leakDetectionThreshold: 2000
+  output:
+    ansi:
+      enabled: always
+
+mybatis:
+  configuration:
+      map-underscore-to-camel-case: true
+      default-fetch-size: 100
+      default-statement-timeout: 30
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.ikentop.biz.provider.model.dto, com.ikentop.biz.provider.model.bo
+
+pagehelper:
+  auto-runtime-dialect: true
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+logging:
+  file: ${spring.application.name}
+
+info:
+  app:
+    name: be-provider
+    version: v0.x
+    developer: [tac, huqiao]
+
+management:
+  security:
+    enabled: false
+
+oss:
+  type: qiniu
+#  todo:: 之后需要替换为从数据库获取
+  secret-key: 4LQfoisZhS8hpfAMnesbkFgad8Rcv9wjmkoHHR-u
+  access-key: NB2EWIc0a9kZiN59iGnXCmYsEp0xMNY26xq57iBh
+  default-bucket: public
+  default-expires: 1800
+  callback:
+    host: http://ikentop.xicp.net
+    path: callback/qiniu_oss_upload
+
+payment:
+  ali-pay:
+    app-id:
+    private-key:
+    alipay-public-key:
+    sandbox:
+      app-id: 2016082100307598
+      private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCIJu7zpXqiW01ResFiJcn5bPCqcFa9hpeJbYun9GDJzmiyTefb+5WsDd9vA0EaIhmRctj+sHGHXWitzGRelT7JvURf2sEQCBHBNz4o0vGdTYsjMGtRhGGY5f4dOuqhq+jI08DnnrCXyduXU4KE3xsKKoVCF515EuMiD0x3dX+BAIcb111gp4zQYw6KQ2SQcZAHv+rRbpj372IgJ75Ba9WdnDjmKAUN5x+mRZYZj5U8KVC43f8LWutlRUfX/TvR9k5I7Irbo4/HUlolzwuLXbpoiawC8KRNArTz4WmEx0Rt1djgdEl/p5nuOLW/xidwsgEftmW7hmdXj5EF6zX2WRCPAgMBAAECggEASSq7EN5lx+hO5bGVSPxLzSm5L67NPm6c8vKWsXyHowu0gdWR+0r5RQvzfcH+819N5DcW28/QQtF01qlXaujDZEC9BNIXHFlpyS65zdCGnWU1l4SGt7jvhe5bIDQwMQ+kOoBpU0+ZUQjeZDUxl9wZuN3e3QS50H3Q59XW3v+atKTdEBc0c1LOF3W/NKtJLoHHx//ncpgf3e4n2ofJWHrc8S7TlBVAhgLvWajZQNpgF3WnuknvjMk/ek4k2sZ+UrYV2L+I5rWWNnNI+WqqEmCEy7xbb4+giYQSb7E9RlNBhXo97yFfmn5O9LRL8MYaSSxOxF6SnSeGw56YrqhvSBgNQQKBgQDQpbSwN1nqB3QLEj60+uia8RrmevTfHBZt+H9nEuZbUyDo6ZEZqTNAktGLXz7LTC+CHWVEB3XUvxGNSWrkDmO3te3bVBq6+zhFsTK6ZfZFRJvLJ9GhIIRGh6zaf8ow/C+ABlb788uh7r4uiKXq1CjKuHe/cLekEVLmOlQses7oIQKBgQCnDUupSIGiRi7++ULmkR2nOCf0NGcG/NclNt+xglu3IWhI0f7dwy+8h8KNihNCQHjuB9+sKOi6bQdFhcJjj0rbBpZ/Rv+eXGYHTvQdAbXDXYiK7pgD9TIWYner+WuIp8SLxGwP9W6Xf0qbh/ggh7MEDf0VyHocY4rMHvKhtZQirwKBgQCG1Y8fEaYZhxeG0BOWAU+wUX+A0pTMWepkxuIOSjhzbBUob0hFvQJSCI9B8hsyZdmNzFFU1T1gbtl45KkfF+15GyjLRF7B1vdWklyl+J5dxSio8OKXrdvNeIBL86lGXrKTmYU87R/7Vb2xdL1ENDboSq2YGc+TR167SZZ76CEuAQKBgA9olYsGyhZKvPj9yuLzjbWn41+OGda2Ka4gEqAP8x/AMBtPa1/PKi8MorBlhQM+aSkjhskdeOIBPoN2JAkE5ZWwVN9mkBtuUGbqLHAkgTyE+xw9h74NttIDwSAWwIl5WBLASmtqawoETsBr2UI+4g9Erwx8Um8d62aKkDzEP+a3AoGAZ6t71/s0UPKF5p/LwvReek3YVAP6wnkoODJJEIklmcSN4FiWFSjc02mH1cqOdRluDbHym7B4dTAI5Tb/lhWCw3BYZ1UL8o/sJZ2Tu5BZpdbfe2uiRo8MER2vaiQnEZuRrQ/Ds2b4Ax4RSoqaqn2MerrPtgz3ULXzuoUnt3acLpw=
+      alipay-public-key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDIgHnOn7LLILlKETd6BFRJ0GqgS2Y3mn1wMQmyh9zEyWlz5p1zrahRahbXAfCfSqshSNfqOmAQzSHRVjCqjsAw1jyqrXaPdKBmr90DIpIxmIyKXv4GGAkPyJ/6FTFY99uhpiq0qadD/uSzQsefWo0aTvP/65zi3eof7TcZ32oWpwIDAQAB
+  pay-pal:
+    client:
+      id:
+      secret:
+    sandbox:
+      client:
+        id: AX1sFoCThiAcCrBPVoL6mdh3VCux3aUiV3qVW7I9Zj3a3EmUvSVO84ym6wZ99Yhu6RS2J7qqHFtnff3Q
+        secret: EIfkZX_-TVPHVnC0jUKFrfX2k5J09lafJwwpVHFTb-klrpfCnE2YqX3QbJpgJuAWPtRxasZpUiFmDPDm
+  wx-pay:
+    app-id: wxab8acb865bb1637e
+    mch-id: 11473623
+    app-secret: 2ab9071b06b9f739b950ddb41db2690d
+    cert-path: classpath:/asset/cert/wxpay/apiclient_cert.p12

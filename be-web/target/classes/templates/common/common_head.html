@@ -1,0 +1,37 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*
+ title：页面要显示的标题
+*/-->
+<head th:fragment="commonHeader(title)">
+    <title th:text="${title}"></title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--这个是谷歌的样式api-->
+    <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />-->
+    <!--Bootstrap专用图标字体，它包含的所有图标都是矢量的，也就可以任意缩放-->
+    <link th:href="@{assets/global/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <!--收集众多网站的Logo，并提供高质量、不同尺寸的png格式图片给广大网友 结论：他们都是共用的css-->
+    <link th:href="@{assets/global/plugins/simple-line-icons/simple-line-icons.min.css}" rel="stylesheet" type="text/css" />
+    <!--共用的css-->
+    <link th:href="@{assets/global/plugins/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <!--bootstrap-table.min.css:一个表格插件-->
+    <link th:href="@{assets/global/plugins/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet" type="text/css" />
+    <!--sweetalert.css:这个插件是弹出插件里面最好看的一款，之前用的都是layer，发现它之后，项目所有用到layer的弹出消息的都换成了sweetalert了。所以他是一个共用的css。-->
+    <link th:href="@{assets/global/plugins/bootstrap-sweetalert/sweetalert.css}" rel="stylesheet" type="text/css" />
+    <!--components.min.css
+这个是文件非常重要，是整个项目的核心文件，如果你把这个文件给删掉，那么你就用不了这个metronic了。它里面主要是对一些插件再一次进行了处理，各种好看样式比如说：各种好看的按钮，表格，还有portlet，还有重置css样式等等核心的功能。
+结论：它是共用的css文件，有个经验教训，请不要私自该这个文件，最好是不要修改它。请除非必须的时候。-->
+    <link th:href="@{assets/global/css/components.min.css}" rel="stylesheet" id="style_components" type="text/css" />
+    <!--plugins.min.css
+这个文件也是一个核心的文件，它主要是针对很多插件的css文件，比如说：时间控件（datepicker）、Bootstrap-select、bootstrap-switch等等，基于这些插件，又给优化了一些。是一个共用的css文件-->
+    <link th:href="@{assets/global/css/plugins.min.css}" rel="stylesheet" type="text/css" />
+    <!--qiyu-custom
+这个是我们自己定义的一个css文件，意图其实和上面的plugins.min.css一样一样的。也是共用的css文件-->
+    <link th:href="@{assets/global/css/qiyu-custom.css}" rel="stylesheet" type="text/css" />
+    <!--这个是整个项目的布局文件，是共用的css文件-->
+    <link th:href="@{assets/layouts/layout2/css/layout.min.css}" rel="stylesheet" type="text/css" />
+    <!--共这个是主题文件，蓝色为主，共用的css文件-->
+    <link th:href="@{assets/layouts/layout2/css/themes/blue.min.css}" rel="stylesheet" type="text/css" id="style_color" />
+</head>
+</html>

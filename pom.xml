@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ikentop.biz</groupId>
+    <artifactId>be-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>be-core</module>
+        <module>be-client</module>
+        <module>be-provider</module>
+        <module>be-job</module>
+        <!--thymeleaf 新增-->
+        <module>be-web</module>
+        <module>be-framework-web</module>
+        <!--thymeleaf 新增 end-->
+    </modules>
+    <!--thymeleaf 新增-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.4.RELEASE</version>
+    </parent>
+    <!--thymeleaf 新增end-->
+    <properties>
+        <framework.version>1.1.0-SNAPSHOT</framework.version>
+        <!--thymeleaf 新增-->
+        <be-web.version>0.0.1-SNAPSHOT</be-web.version>
+        <be-framework-web.version>0.0.1-SNAPSHOT</be-framework-web.version>
+        <!--thymeleaf 新增 end-->
+        <be-core.version>0.0.1-SNAPSHOT</be-core.version>
+        <be-provider.version>0.0.1-SNAPSHOT</be-provider.version>
+        <be-job.version>0.0.1-SNAPSHOT</be-job.version>
+        <shiro.version>1.4.0</shiro.version>
+        <shiro-ehcache.version>1.3.2</shiro-ehcache.version>
+        <pagehelper-starter.version>1.1.1</pagehelper-starter.version>
+        <!--thymeleaf-->
+        <thymeleaf.extras.shiro.version>2.0.0</thymeleaf.extras.shiro.version>
+        <alibaba.fastjson.version>1.2.7</alibaba.fastjson.version>
+        <fastdfs.client.version>5.0.4</fastdfs.client.version>
+        <codehaus.groovy.version>2.4.6</codehaus.groovy.version>
+        <quartz.version>2.2.3</quartz.version>
+        <spring.boot.admin.server.version>1.4.6</spring.boot.admin.server.version>
+        <spring.boot.admin.client.version>1.3.4</spring.boot.admin.client.version>
+    </properties>
+
+    <distributionManagement>
+        <!-- remote -->
+        <repository>
+            <id>nexus-ikentop</id>
+            <name>releases</name>
+            <url>http://172.10.10.66:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-ikentop</id>
+            <name>snapshots</name>
+            <url>http://172.10.10.66:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--thymeleaf-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring.boot.admin.client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-server</artifactId>
+                <version>${spring.boot.admin.server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-server-ui</artifactId>
+                <version>${spring.boot.admin.server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+            <!-- groovy-->
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>${codehaus.groovy.version}</version>
+            </dependency>
+
+
+
+            <!--fastdfs-java-->
+            <dependency>
+                <groupId>org.csource</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>${fastdfs.client.version}</version>
+            </dependency>
+
+            <!-- alibaba json -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${alibaba.fastjson.version}</version>
+            </dependency>
+
+            <!--thymeleaf - extras -shiro -->
+            <dependency>
+                <groupId>com.github.theborakompanioni</groupId>
+                <artifactId>thymeleaf-extras-shiro</artifactId>
+                <version>${thymeleaf.extras.shiro.version}</version>
+            </dependency>
+
+            <!--thymeleafend-->
+            <dependency>
+                <groupId>com.ikentop.framework</groupId>
+                <artifactId>framework-parent</artifactId>
+                <version>${framework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ikentop.biz</groupId>
+                <artifactId>be-core</artifactId>
+                <version>${be-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ikentop.biz</groupId>
+                <artifactId>be-provider</artifactId>
+                <version>${be-provider.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-web</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-ehcache</artifactId>
+                <version>${shiro-ehcache.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>23.6-jre</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.9.11</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+</project>

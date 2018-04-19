@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="be-client" />
+        <module name="be-core" />
+        <module name="be-framework-web" />
+        <module name="be-job" />
+        <module name="be-provider" />
+        <module name="be-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="be-client" target="1.8" />
+      <module name="be-core" target="1.8" />
+      <module name="be-framework-web" target="1.8" />
+      <module name="be-job" target="1.8" />
+      <module name="be-parent" target="1.8" />
+      <module name="be-provider" target="1.8" />
+      <module name="be-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

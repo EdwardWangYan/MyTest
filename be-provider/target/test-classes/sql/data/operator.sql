@@ -1,0 +1,10 @@
+INSERT INTO pat_org_info (id, title, org_type_code) VALUES ('1', 'ikentop', 'platform');
+INSERT INTO pat_org_operator (id, org_id, login_name) VALUES ('1', '1', 'lisi');
+INSERT INTO pat_org_operator (id, org_id, login_name) VALUES ('2', '1', 'lisa');
+INSERT INTO pat_org_staff (id, org_id, staff_name) VALUES ('1', '1', '李四');
+INSERT INTO pat_org_staff (id, org_id, staff_name) VALUES ('2', '1', '李撒');
+INSERT INTO pat_system_role_info (id, org_id, role_name, code) VALUES ('1', '1', '管理员', 'admin');
+INSERT INTO pat_org_staff_operator_relation (id, staff_id, operator_id) VALUES ('1', '1', '1');
+INSERT INTO pat_org_operator_role_relation (id, operator_id, role_id) VALUES ('1', '1', '1');
+INSERT INTO pat_org_dept_info (id, org_id, dept_name) VALUES ('1', '1', '研发部');
+INSERT INTO pat_org_dept_staff_relation (id, dept_id, staff_id) VALUES ('1', '1', '1');

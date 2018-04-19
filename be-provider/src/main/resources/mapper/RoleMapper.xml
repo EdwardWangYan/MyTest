@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.RoleMapper">
+    <resultMap id="listMap" type="com.ikentop.biz.provider.model.dto.RoleDetailInfo">
+        <id property="id" column="id" javaType="String"/>
+        <result property="orgName" column="orgName" javaType="String"/>
+        <result property="createdName" column="createdName" javaType="String"/>
+    </resultMap>
+
+
+    <select id="list4Admin" resultMap="listMap">
+        ( SELECT
+        r.*, o.title AS orgName,
+        s.staff_name AS createdName,
+        t.title AS orgTypeName
+        FROM
+        pat_system_role_info r
+        LEFT JOIN pat_org_info o ON r.org_id = o.id
+        LEFT JOIN pat_org_staff s ON s.id = (
+        SELECT
+        so.staff_id
+        FROM
+        pat_org_staff_operator_relation so
+        WHERE
+        so.operator_id = r.created_by
+        )
+        LEFT JOIN pat_org_type t
+        ON t.code = r.type_id
+        WHERE r.deleted_flag = 0 AND r.type_id  <![CDATA[ <> ]]> 'specific' AND r.type_id = 'common'
+        <if test="roleName != null and roleName != ''">
+            AND r.role_name LIKE CONCAT('%', #{roleName}, '%')
+        </if>
+        <if test="remark != null and remark != ''">
+            AND r.remark LIKE CONCAT('%', #{remark}, '%')
+        </if>
+        )
+        UNION
+        (SELECT
+        r.*, o.title AS orgName,
+        s.staff_name AS createdName,
+        t.title AS orgTypeName
+        FROM
+        pat_system_role_info r
+        LEFT JOIN pat_org_info o ON r.org_id = o.id
+        LEFT JOIN pat_org_staff s ON s.id = (
+        SELECT
+        so.staff_id
+        FROM
+        pat_org_staff_operator_relation so
+        WHERE
+        so.operator_id = r.created_by
+        )
+        LEFT JOIN pat_org_type t
+        ON t.code = r.type_id
+        WHERE r.deleted_flag = 0 AND r.type_id  <![CDATA[ <> ]]> 'specific' AND r.type_id <![CDATA[ <> ]]> 'common'
+        <if test="roleName != null and roleName != ''">
+            AND r.role_name LIKE CONCAT('%', #{roleName}, '%')
+        </if>
+        <if test="orgId != null and orgId != ''">
+            AND r.org_id = #{orgId}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND r.remark LIKE CONCAT('%', #{remark}, '%')
+        </if>)
+        ORDER BY created_time DESC
+    </select>
+
+    <select id="list4operator" resultType="com.ikentop.biz.provider.model.dto.Role4OperatorInfo">
+        SELECT r.*
+        FROM pat_system_role_info r
+        WHERE r.id IN (
+            SELECT orr.role_id
+            FROM pat_org_operator_role_relation orr
+            WHERE orr.operator_id = #{id}
+        ) AND r.deleted_flag = 0
+        ORDER BY r.created_time DESC
+    </select>
+
+    <select id="getDetail" resultType="com.ikentop.biz.provider.model.dto.RoleDetailInfo">
+        SELECT
+        r.*,
+        o.title AS orgName,
+        s.staff_name AS createdName,
+        t.title AS orgTypeName
+        FROM
+        pat_system_role_info r
+        LEFT JOIN pat_org_info o ON r.org_id = o.id
+        LEFT JOIN pat_org_staff s ON s.id = (
+        SELECT so.staff_id
+        FROM
+        pat_org_staff_operator_relation so
+        WHERE
+        so.operator_id = r.created_by
+        )
+        LEFT JOIN pat_org_type t
+        ON t.code = r.type_id
+        WHERE r.id = #{param1} AND o.deleted_flag = 0 AND r.type_id  <![CDATA[ <> ]]> 'specific'
+        <if test="param2 != null and param2 != ''">
+            AND r.org_id = #{param2}
+        </if>
+        LIMIT 1;
+    </select>
+
+    <select id="getRoleNames" resultType="java.lang.String">
+        SELECT r.role_name
+        FROM pat_system_role_info r
+        WHERE r.id IN (
+            SELECT ro.role_id
+            FROM pat_org_operator_role_relation ro
+            WHERE ro.operator_id = #{id}
+        ) AND r.deleted_flag = 0
+    </select>
+</mapper>

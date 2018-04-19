@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.ResourceMapper">
+    <resultMap id="listMap" type="com.ikentop.biz.provider.model.dto.Resource4ParentInfo">
+        <id property="id" column="id" javaType="String"/>
+        <result property="parentId" column="parentId" javaType="String"/>
+    </resultMap>
+
+    <select id="listNextLevel" resultType="com.ikentop.biz.provider.model.dto.ResourceListInfo">
+        SELECT
+        r.*,
+        pr.resource_title AS parentName,
+        t.title AS orgTypeName
+        FROM pat_system_resource r
+        LEFT JOIN pat_system_resource pr
+        ON r.parent_id = pr.id
+        LEFT JOIN pat_org_type t
+        ON t.code = r.org_type
+        WHERE r.deleted_flag = 0
+        <if test="operatorId != '1725c88db25a46539e3950420a783635'">
+            AND r.org_type <![CDATA[ <> ]]> 'specific'
+        </if>
+        <if test="id == null or resourceTitle == ''">
+            AND r.parent_id IS NULL
+        </if>
+        <if test="id != null and id != ''">
+            AND r.parent_id = #{id}
+        </if>
+        <if test="resourceTitle != null and resourceTitle != ''">
+            AND r.resource_title LIKE CONCAT('%', #{resourceTitle}, '%')
+        </if>
+        <if test="summary != null and summary != ''">
+            AND r.summary LIKE CONCAT('%', #{summary}, '%')
+        </if>
+        ORDER BY orders_index
+    </select>
+
+    <select id="getDetail" resultType="com.ikentop.biz.provider.model.dto.ResourceListInfo">
+        SELECT
+            r.*,
+            pr.resource_title AS parentName,
+            t.title           AS orgTypeName
+        FROM pat_system_resource r
+            LEFT JOIN pat_system_resource pr
+                ON r.parent_id = pr.id
+            LEFT JOIN pat_org_type t
+                ON t.code = r.org_type
+        WHERE r.id = #{id}
+    </select>
+
+    <select id="list4Role" resultType="com.ikentop.biz.provider.model.dto.Resource4RoleInfo">
+        SELECT DISTINCT
+        r.*,
+        r.resource_title AS title,
+        r.resource_icon AS icon,
+        rr.resource_id AS flag
+        FROM pat_system_resource r
+        LEFT JOIN pat_org_role_resource_relation rr
+        ON rr.resource_id = r.id AND rr.role_id = #{param2}
+        WHERE r.deleted_flag = 0
+        <if test="arg0 != '1725c88db25a46539e3950420a783635'">
+            AND r.org_type <![CDATA[ <> ]]> 'specific' AND ((r.org_type = 'common') OR(r.org_type = #{param3}) )
+        </if>
+        ORDER BY orders_index
+    </select>
+
+
+    <select id="list4CurrentAdmin" resultType="com.ikentop.biz.provider.model.dto.Resource4RoleInfo">
+        SELECT DISTINCT
+            r.*,
+            r.resource_title AS title,
+            r.resource_icon  AS icon,
+            t.code           AS flag
+        FROM pat_system_resource r
+            LEFT JOIN pat_org_type t
+                ON t.code = r.org_type
+        ORDER BY orders_index
+    </select>
+
+    <select id="list4CurrentOperator" resultType="com.ikentop.biz.provider.model.dto.Resource4RoleInfo">
+        SELECT DISTINCT
+            r.*,
+            r.resource_title AS title,
+            r.resource_icon  AS icon,
+            rr.resource_id   AS flag
+        FROM pat_system_resource r
+            LEFT JOIN pat_org_role_resource_relation rr
+                ON rr.resource_id = r.id AND rr.role_id IN (
+                SELECT orr.role_id
+                FROM pat_org_operator_role_relation orr
+                WHERE orr.operator_id = #{param1}
+            )
+        WHERE r.deleted_flag = 0 AND r.org_type <![CDATA[ <> ]]> 'specific' AND ((r.org_type = 'common') OR (r.org_type = #{param2}))
+        ORDER BY orders_index
+    </select>
+    <!--调用sql的function-->
+    <select id="list4parent" resultMap="listMap">
+        SELECT *
+        FROM pat_system_resource
+        WHERE FIND_IN_SET(id, queryAreaInfo(#{id})) AND id <![CDATA[ <> ]]> #{id};
+    </select>
+    <select id="list4AdminRole" resultType="com.ikentop.biz.model.entity.Resource">
+        SELECT
+            r.*,
+            r.id AS pk
+        FROM pat_system_resource r
+        WHERE r.deleted_flag = 0 AND r.org_type <![CDATA[ <> ]]> 'specific' AND
+              ((r.org_type = 'common') OR (r.org_type = #{orgTypeCode})) AND
+              r.parent_id IS NULL
+    </select>
+
+</mapper>

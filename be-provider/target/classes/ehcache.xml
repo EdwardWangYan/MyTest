@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache name="be-cache">
+    <!--todo::-->
+    <diskStore path="/tmp/cache"/>
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            timeToIdleSeconds="30"
+            overflowToDisk="true"/>
+
+    <!-- !!important 以下缓存仅做配置示例使用，请勿在代码中使用-->
+    <cache
+            name="example-cache"
+            maxEntriesLocalHeap="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxEntriesLocalDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"/>
+
+
+</ehcache>

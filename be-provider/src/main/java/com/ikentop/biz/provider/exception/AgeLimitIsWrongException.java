@@ -1,0 +1,14 @@
+package com.ikentop.biz.provider.exception;
+
+import com.ikentop.biz.provider.BEErrorCode;
+import com.ikentop.framework.core.exception.BizException;
+
+/**
+ * @author Huqiao
+ * @since 2017/12/18
+ */
+public class AgeLimitIsWrongException extends BizException {
+    public AgeLimitIsWrongException() {
+        super(BEErrorCode.AGE_LIMIT_IS_WRONG);
+    }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.DictionaryMapper">
+
+
+    <select id="getDetail" resultType="com.ikentop.biz.provider.model.dto.DictionaryInfo">
+        SELECT d1.*,d2.data_name AS parentName
+        FROM comm_system_dictionary d1
+        LEFT JOIN comm_system_dictionary d2
+        ON d1.parent_id = d2.id
+        WHERE d1.id = #{id}
+    </select>
+
+</mapper>

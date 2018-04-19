@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.OrganizationMapper">
+    <resultMap id="listMap" type="com.ikentop.biz.provider.model.dto.OrganizationListInfo">
+        <id property="id" column="id" javaType="String"/>
+        <result property="orgType" column="orgType" javaType="String"/>
+    </resultMap>
+
+    <resultMap id="getDetailMap" type="com.ikentop.biz.provider.model.dto.OrganizationDetailInfo" autoMapping="true">
+        <id property="id" column="id" javaType="String"/>
+        <association property="orgLogoInfo" javaType="com.ikentop.biz.model.dto.ImageRecordInfo"
+                     autoMapping="true">
+            <id property="imageId" column="imageId"/>
+        </association>
+    </resultMap>
+    <select id="getDetails" resultMap="getDetailMap">
+        SELECT
+            o.*,
+            im.*,
+            im.id   AS imageId,
+            t.title AS orgTypeName
+        FROM pat_org_info o
+            LEFT JOIN pat_org_type t
+                ON o.org_type_code = t.code
+            LEFT JOIN comm_image_record im
+                ON im.id = o.org_logo_id
+        WHERE o.id = #{id} AND o.deleted_flag = 0
+        LIMIT 1;
+    </select>
+
+
+    <select id="list" resultMap="listMap">
+        SELECT
+        o.*,t.title AS orgType
+        FROM pat_org_info o
+        LEFT JOIN pat_org_type t
+        ON o.org_type_code = t.code
+        WHERE o.deleted_flag = 0
+        <if test="title != null and title != ''">
+            AND o.title LIKE CONCAT('%', #{title}, '%')
+        </if>
+        <if test="orgTypeCode != null and orgTypeCode != ''">
+            AND o.org_type_code= #{orgTypeCode}
+        </if>
+        <if test="status != null and status != ''">
+            AND o.status = #{status}
+        </if>
+        ORDER BY o.created_time DESC
+    </select>
+</mapper>

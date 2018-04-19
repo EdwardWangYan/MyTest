@@ -1,0 +1,1 @@
+CREATE TABLE pat_org_operator_role_relation(id VARCHAR(64) PRIMARY KEY, operator_id VARCHAR(64) DEFAULT NULL, role_id VARCHAR(64) DEFAULT NULL, deleted_flag INT DEFAULT NULL, created_time DATETIME DEFAULT NULL, created_by VARCHAR(64) DEFAULT NULL, update_time DATETIME DEFAULT NULL, update_by VARCHAR(64) DEFAULT NULL)

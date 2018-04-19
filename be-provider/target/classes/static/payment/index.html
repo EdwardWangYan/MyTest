@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script src="/payment/checkout.js"></script>
+
+    <title>hello paypal</title>
+</head>
+<body>
+<div id="paypal-button"></div>
+
+<script>
+    paypal.Button.render({
+        env: 'sandbox',
+        style: {
+            color: 'gold',
+            size: 'small'
+        },
+
+        payment: function (data, actions) {
+            return actions.request.get('/openapi/payment/test/paypal')
+                .then(function (res) {
+                    console.log(res);
+                    if (res.state == 1) {
+                        var data = JSON.parse(res.data);
+                        console.log(decodeURI(data.links[1].href));      //通过这个url也可以手动跳转到支付页面
+                        return data.id;
+                    } else {
+                        alert('请求失败！');
+                    }
+                });
+        },
+
+        onAuthorize: function (data, actions) {
+            return actions.request.post('/openapi/payment/callback/test/paypal/execute', {
+                payment_id: data.paymentID,
+                payer_id: data.payerID
+            }).then(function (res) {
+                console.log(res);
+                if (res.state == 1) {
+                    alert('恭喜，支付成功！');
+                    console.log('Payment complete!')
+                } else {
+                    alert('支付失败！');
+                    console.log('Payment failure!')
+                }
+            });
+        }
+    }, '#paypal-button');
+</script>
+</body>
+</html>

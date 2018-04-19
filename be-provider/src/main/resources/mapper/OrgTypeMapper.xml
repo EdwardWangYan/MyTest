@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.OrgTypeMapper">
+    <resultMap id="listMap" type="com.ikentop.biz.provider.model.dto.OrgTypeListInfo">
+        <id property="id" column="id" javaType="String"/>
+        <result property="createdName" column="createdName" javaType="String"/>
+    </resultMap>
+
+    <select id="getList" resultMap="listMap">
+        SELECT
+            t.*,
+            s.staff_name AS createdName
+        FROM pat_org_type t
+            LEFT JOIN pat_org_staff s
+                ON s.id = (
+                SELECT so.staff_id
+                FROM pat_org_staff_operator_relation so
+                WHERE so.operator_id = t.created_by)
+        WHERE t.deleted_flag = 0
+        ORDER BY t.created_time DESC
+    </select>
+</mapper>

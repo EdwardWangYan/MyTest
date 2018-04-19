@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ikentop.biz.provider.mapper.StaffMapper">
+
+    <resultMap id="list4AdminMap" type="com.ikentop.biz.provider.model.dto.StaffListInfo" autoMapping="true">
+        <id property="id" column="id" javaType="String"/>
+        <result property="operatorName" column="operatorName" javaType="String"/>
+        <collection property="departmentNames" column="departmentNames" javaType="List" ofType="String">
+            <result column="departmentNames"/>
+        </collection>
+    </resultMap>
+
+    <select id="list4Admin" resultMap="list4AdminMap">
+        SELECT
+        s.*,
+        d.dept_name AS departmentNames,
+        o.login_name AS operatorName
+        FROM pat_org_staff s
+        LEFT JOIN pat_org_dept_info d
+        ON d.id IN (
+        SELECT ds.dept_id
+        FROM pat_org_dept_staff_relation ds
+        WHERE ds.staff_id = s.id
+        )
+        LEFT JOIN pat_org_operator o
+        ON o.id = (
+        SELECT so.operator_id
+        FROM pat_org_staff_operator_relation so
+        WHERE so.staff_id = s.id
+        )
+        WHERE s.deleted_flag = 0 AND s.org_id = #{orgId}
+        <if test="departmentId != null and departmentId != ''">
+            AND s.id IN (
+            SELECT dss.staff_id
+            FROM pat_org_dept_staff_relation dss
+            WHERE dss.dept_id = #{departmentId}
+            )
+        </if>
+        <if test="operatorName != null and operatorName != ''">
+            AND s.id IN (
+            SELECT sor.staff_id
+            FROM pat_org_staff_operator_relation sor
+            WHERE sor.operator_id IN (
+            SELECT oo.id
+            FROM pat_org_operator oo
+            WHERE oo.login_name LIKE CONCAT('%', #{operatorName}, '%')
+            )
+            )
+        </if>
+        <if test="staffName != null and staffName != ''">
+            AND s.staff_name LIKE CONCAT('%', #{staffName}, '%')
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND s.mobile LIKE CONCAT('%', #{mobile}, '%')
+        </if>
+        ORDER BY s.created_time DESC
+    </select>
+
+    <resultMap id="getDetailMap" type="com.ikentop.biz.provider.model.dto.StaffDetailInfo" autoMapping="true">
+        <id property="id" column="id" javaType="String"/>
+        <result property="operatorName" column="operatorName" javaType="String"/>
+        <collection property="departmentInfo" column="id" select="getDepartmentInfo">
+            <result column="departmentName"/>
+            <result column="startTime"/>
+            <result column="endTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="getDetail" resultMap="getDetailMap">
+        SELECT
+            s.*,
+            o.login_name AS operatorName
+        FROM pat_org_staff s
+            LEFT JOIN pat_org_operator o
+                ON o.id = (
+                SELECT so.operator_id
+                FROM pat_org_staff_operator_relation so
+                WHERE so.staff_id = s.id
+            )
+        WHERE s.id = #{param1} AND s.org_id = #{param2}
+        LIMIT 1;
+    </select>
+    <select id="getDepartmentInfo" resultType="com.ikentop.biz.provider.model.dto.DepartmentStaffInfo">
+        SELECT
+            d.id          AS departmentId,
+            d.dept_name   AS departmentName,
+            ds.start_time AS startTime,
+            ds.end_time   AS endTime
+        FROM pat_org_dept_staff_relation ds
+            LEFT JOIN pat_org_dept_info d
+                ON d.id = ds.dept_id
+        WHERE ds.id IN (
+            SELECT dsr.id
+            FROM pat_org_dept_staff_relation dsr
+            WHERE dsr.staff_id = #{id}
+        )
+    </select>
+</mapper>

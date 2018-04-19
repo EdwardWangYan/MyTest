@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>be-parent</artifactId>
+        <groupId>com.ikentop.biz</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>be-web</artifactId>
+    <packaging>war</packaging>
+    <name>be-web</name>
+    <version>${be-web.version}</version>
+
+    <properties>
+        <start-class>com.ikentop.BEProviderApplication</start-class>
+        <war-version>2.4</war-version>
+        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
+    </properties>
+
+    <dependencies>
+        <!--spring boot admin-client-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+        <!--系统模板thymeleaf-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!--系统静态资源模块和当前模块打成一个war包-->
+        <dependency>
+            <artifactId>be-framework-web</artifactId>
+            <groupId>com.ikentop.biz</groupId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+        <!--权限模块-->
+        <dependency>
+            <groupId>com.ikentop.biz</groupId>
+            <artifactId>be-provider</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!--打War用的 勿删 勿删-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+    </dependencies>
+    <build>
+        <finalName>Be-Parent</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${war-version}</version>
+                <!-- 多个web工程war包合并 -->
+                <configuration>
+                    <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+                    <overlays>
+                        <overlay>
+                            <artifactId>be-framework-web</artifactId>
+                            <groupId>com.ikentop.biz</groupId>
+                        </overlay>
+                    </overlays>
+                </configuration>
+            </plugin>
+            <!--可执行jar包-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

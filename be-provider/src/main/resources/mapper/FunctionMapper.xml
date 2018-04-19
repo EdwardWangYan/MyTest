@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.FunctionMapper">
+
+    <select id="list4Role" resultType="com.ikentop.biz.provider.model.dto.Function4RoleInfo">
+        SELECT
+        f.*,
+        f.function_title AS title,
+        rp.permission_id AS flag
+        FROM pat_system_function f
+        LEFT JOIN pat_system_role_permission rp
+        ON rp.permission_id = f.id AND rp.role_id = #{param1}
+        WHERE f.deleted_flag = 0 AND f.org_type <![CDATA[ <> ]]> 'specific'
+        <if test="arg1 != null and arg1 != ''">
+            AND ((f.org_type = 'common') OR(f.org_type = #{param2}) )
+        </if>
+        ORDER BY f.created_time DESC
+    </select>
+
+    <select id="getFunctionValues" resultType="java.lang.String">
+        SELECT f.permission_value
+        FROM pat_system_function f
+        WHERE f.id IN (
+            SELECT DISTINCT rp.permission_id
+            FROM pat_system_role_permission rp
+            WHERE rp.role_id IN (
+                SELECT DISTINCT orr.role_id
+                FROM pat_org_operator_role_relation orr
+                WHERE orr.operator_id = #{id}
+            )
+        )
+    </select>
+
+    <select id="getDetail" resultType="com.ikentop.biz.provider.model.dto.FunctionDetailInfo">
+        SELECT
+            f1.*,
+            f2.function_title AS parentName,
+            t.title           AS orgTypeName
+        FROM pat_system_function f1
+            LEFT JOIN pat_system_function f2
+                ON f1.parent_id = f2.id
+            LEFT JOIN pat_org_type t
+                ON t.code = f1.org_type
+        WHERE f1.id = #{id}
+    </select>
+    <select id="list4CreateOrg" resultType="com.ikentop.biz.model.entity.Function">
+        SELECT
+            f.id AS pk,
+            f.*
+        FROM pat_system_function f
+        WHERE f.deleted_flag = 0 AND f.parent_id IS NULL AND (f.org_type = #{orgTypeCode} OR f.org_type = 'common')
+    </select>
+</mapper>

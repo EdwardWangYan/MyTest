@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/be-client/be-client.iml" filepath="$PROJECT_DIR$/be-client/be-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-core/be-core.iml" filepath="$PROJECT_DIR$/be-core/be-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-framework-web/be-framework-web.iml" filepath="$PROJECT_DIR$/be-framework-web/be-framework-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-job/be-job.iml" filepath="$PROJECT_DIR$/be-job/be-job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-job/be-job.iml" filepath="$PROJECT_DIR$/be-job/be-job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-parent.iml" filepath="$PROJECT_DIR$/be-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-provider/be-provider.iml" filepath="$PROJECT_DIR$/be-provider/be-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-provider/be-provider.iml" filepath="$PROJECT_DIR$/be-provider/be-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-web/be-web.iml" filepath="$PROJECT_DIR$/be-web/be-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/be-web/be-web.iml" filepath="$PROJECT_DIR$/be-web/be-web.iml" />
+    </modules>
+  </component>
+</project>

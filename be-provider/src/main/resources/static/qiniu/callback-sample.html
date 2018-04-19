@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <title>qiniu cloud callback sample</title>
+    <script>
+        $(function () {
+            function getBucket(name, callback) {
+                $.get("/oss/listBucket", function (result) {
+                    console.log(result);
+                    function findBucket(data, name) {
+                        var bucket;
+                        data.map(function (item, index, array) {
+                            if (item.name === name) {
+                                bucket = item;
+                            }
+                        });
+                        return bucket;
+                    }
+
+                    callback(findBucket(result.data, name));
+                });
+            }
+
+            function getToken(callback) {
+                $.get("/oss/upToken", function (result) {
+                    if (result.state == 1) {
+                        console.log(result);
+                        callback(result.data.token);
+                    } else {
+                        alert(result.msg);
+                    }
+                });
+            }
+
+            $("#btn_upload").click(function () {
+                getToken(function (token) {
+                    $("#up_token").text(token);
+                    var file = $("#up_file")[0].files[0];
+                    var data = new FormData();
+                    data.append("file", file);
+                    data.append("token", token);
+                    data.append("x:ext", $("#ext").val());
+
+                    //for debug
+                    data.forEach(function (item, index, array) {
+                        console.log(index + ": " + item);
+                    });
+
+                    $.ajax({
+                        url: "http://up-z2.qiniu.com/",
+                        type: 'POST',
+                        cache: false,
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function (result) {
+                            console.log(result);
+                            getBucket(result.data.bucket, function (bucket) {
+                                $("#up_img").attr("src", (bucket.domain + "/" + result.data.key));
+                            })
+                        },
+                        error: function (response) {
+                            console.log(JSON.parse(response.responseJSON.error));
+                        }
+                    });
+                });
+            })
+        })
+    </script>
+</head>
+<body>
+<div>
+    <p>测试上传</p>
+    <p id="up_token"></p>
+    <input id="up_file" type="file" name="file"/>
+    <button id="btn_upload" type="button">上传</button>
+    <input id="ext" type="text" name="x:ext"/>
+    <br/>
+    <img id="up_img" src="#">
+</div>
+
+</body>
+</html>

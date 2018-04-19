@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ikentop.biz.provider.mapper.OperatorMapper">
+
+    <resultMap id="listMap" type="com.ikentop.biz.provider.model.dto.OperatorListInfo" autoMapping="true">
+        <id property="id" column="id" javaType="String"/>
+        <collection property="roleName" column="roleName" javaType="List" ofType="String">
+            <result column="roleName"/>
+        </collection>
+    </resultMap>
+
+    <select id="list" resultMap="listMap">
+        SELECT
+        o.*,
+        s.staff_name AS staffName,
+        r.role_name AS roleName
+        FROM pat_org_operator o
+        LEFT JOIN pat_org_staff s
+        ON s.id = (
+        SELECT
+        so.staff_id
+        FROM pat_org_staff_operator_relation so
+        WHERE so.operator_id = o.id
+        )
+        LEFT JOIN pat_system_role_info r
+        ON r.id IN (
+        SELECT orr.role_id
+        FROM pat_org_operator_role_relation orr
+        WHERE orr.operator_id = o.id
+        )
+        WHERE o.deleted_flag = 0 AND ( o.org_id = #{orgId}
+        <if test="currentOrgType == 'platform'">
+            OR(o.org_id <![CDATA[<>]]> #{orgId} AND o.id IN (
+            SELECT oor.operator_id
+            FROM pat_org_operator_role_relation oor
+            WHERE oor.role_id IN (
+            SELECT ro.id
+            FROM pat_system_role_info ro
+            WHERE ro.code = 'admin' and ro.created_by IN (
+            SELECT oo.id
+            FROM pat_org_operator oo
+            WHERE oo.org_id = #{orgId}
+            )
+            )
+            ))
+        </if>)
+        <if test="status != null">
+            AND o.status = #{status}
+        </if>
+        <if test="loginName != null and loginName != ''">
+            AND o.login_name LIKE concat('%',#{loginName},'%')
+        </if>
+        ORDER BY created_time DESC
+    </select>
+
+    <select id="selectByPhone" resultType="com.ikentop.biz.model.entity.Operator">
+        SELECT
+            o.*,
+            o.id           AS pk,
+            o.created_time AS createdOn,
+            o.update_by    AS updatedBy,
+            o.update_time  AS updatedOn
+        FROM pat_org_operator o
+        WHERE
+            o.id = (SELECT so.operator_id
+                    FROM pat_org_staff_operator_relation so
+                    WHERE so.staff_id = (
+                        SELECT s.id
+                        FROM pat_org_staff s
+                        WHERE s.mobile = #{phone}
+                    )
+            )
+    </select>
+
+    <resultMap id="getDetailMap" type="com.ikentop.biz.provider.model.dto.OperatorDetailInfo" autoMapping="true">
+        <association property="portraitFileInfo" javaType="com.ikentop.biz.model.dto.ImageRecordInfo"
+                     autoMapping="true">
+            <id property="imageId" column="imageId"/>
+        </association>
+        <collection property="departmentNames" column="departmentNames" javaType="List" ofType="String">
+            <result column="departmentNames"/>
+        </collection>
+    </resultMap>
+    <select id="getDetail" resultMap="getDetailMap">
+        SELECT
+            o.id        AS operatorId,
+            o.login_name,
+            im.*,
+            im.id       AS imageId,
+            s.id        AS staffId,
+            s.*,
+            d.dept_name AS departmentNames
+        FROM pat_org_operator o
+            LEFT JOIN pat_org_staff s
+                ON s.id = (
+                SELECT so.staff_id
+                FROM pat_org_staff_operator_relation so
+                WHERE so.operator_id = #{id}
+            )
+            LEFT JOIN pat_org_dept_info d
+                ON d.id IN (
+                SELECT ds.dept_id
+                FROM pat_org_dept_staff_relation ds
+                WHERE ds.staff_id = s.id
+            )
+            LEFT JOIN comm_image_record im
+                ON im.id = o.portrait_file_id
+        WHERE o.id = #{id} AND o.deleted_flag = 0
+    </select>
+</mapper>

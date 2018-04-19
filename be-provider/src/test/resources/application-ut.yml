@@ -1,0 +1,5 @@
+spring:
+  datasource:
+      url: jdbc:mysql://172.10.10.90:12312/eventmanager?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: ikentop
+      password: 18002503040

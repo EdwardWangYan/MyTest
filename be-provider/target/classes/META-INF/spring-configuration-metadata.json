@@ -1,0 +1,176 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties",
+      "name": "oss",
+      "type": "com.ikentop.biz.provider.domain.oss.OSSProperties"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties",
+      "name": "oss.callback",
+      "sourceMethod": "getCallback()",
+      "type": "com.ikentop.biz.provider.domain.oss.OSSProperties$Callback"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties",
+      "name": "payment",
+      "type": "com.ikentop.biz.provider.domain.payment.PaymentProperties"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties",
+      "name": "payment.ali-pay",
+      "sourceMethod": "getAliPay()",
+      "type": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay",
+      "name": "payment.ali-pay.sandbox",
+      "sourceMethod": "getSandbox()",
+      "type": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay$Sandbox"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties",
+      "name": "payment.pay-pal",
+      "sourceMethod": "getPayPal()",
+      "type": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal",
+      "name": "payment.pay-pal.client",
+      "sourceMethod": "getClient()",
+      "type": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal$Client"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal",
+      "name": "payment.pay-pal.sandbox",
+      "sourceMethod": "getSandbox()",
+      "type": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal$Sandbox"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties",
+      "name": "payment.wx-pay",
+      "sourceMethod": "getWxPay()",
+      "type": "com.ikentop.biz.provider.domain.payment.PaymentProperties$WxPay"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties",
+      "name": "oss.access-key",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties$Callback",
+      "name": "oss.callback.host",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties$Callback",
+      "name": "oss.callback.path",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties$Callback",
+      "name": "oss.callback.port",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties",
+      "name": "oss.default-bucket",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties",
+      "defaultValue": 3600,
+      "name": "oss.default-expires",
+      "type": "java.lang.Long"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties",
+      "name": "oss.secret-key",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.oss.OSSProperties",
+      "name": "oss.type",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay",
+      "name": "payment.ali-pay.alipay-public-key",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay",
+      "name": "payment.ali-pay.app-id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay",
+      "name": "payment.ali-pay.private-key",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay$Sandbox",
+      "name": "payment.ali-pay.sandbox.alipay-public-key",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay$Sandbox",
+      "name": "payment.ali-pay.sandbox.app-id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$AliPay$Sandbox",
+      "name": "payment.ali-pay.sandbox.private-key",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties",
+      "name": "payment.domain",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal$Client",
+      "name": "payment.pay-pal.client.id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal$Client",
+      "name": "payment.pay-pal.client.secret",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal$Sandbox",
+      "name": "payment.pay-pal.sandbox.client",
+      "type": "com.ikentop.biz.provider.domain.payment.PaymentProperties$PayPal$Client"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties",
+      "defaultValue": false,
+      "name": "payment.sandbox",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$WxPay",
+      "name": "payment.wx-pay.app-id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$WxPay",
+      "name": "payment.wx-pay.app-secret",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$WxPay",
+      "name": "payment.wx-pay.cert-path",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ikentop.biz.provider.domain.payment.PaymentProperties$WxPay",
+      "name": "payment.wx-pay.mch-id",
+      "type": "java.lang.String"
+    }
+  ]
+}
