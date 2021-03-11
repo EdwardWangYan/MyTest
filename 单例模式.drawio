@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-03-11T05:03:53.518Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36" etag="QyWz6nIuC9Kao8SPFwDF" version="14.4.7" type="github">
+<mxfile host="app.diagrams.net" modified="2021-03-11T05:06:11.189Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36" etag="A8AiPEvA2-RijcFaiPgc" version="14.4.7" type="github">
   <diagram id="MRhx2yrZEBXJb9mPiW60" name="Page-1">
     <mxGraphModel dx="1038" dy="575" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -22,8 +22,20 @@
         <mxCell id="q3EU0tbVYxhkbZcssHCq-6" value="地铁" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="260" y="370" width="240" height="240" as="geometry" />
         </mxCell>
-        <mxCell id="q3EU0tbVYxhkbZcssHCq-7" value="人流排队" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="q3EU0tbVYxhkbZcssHCq-7" value="检查口" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="350" y="570" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="q3EU0tbVYxhkbZcssHCq-10" value="抢占资源" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="110" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="q3EU0tbVYxhkbZcssHCq-11" value="优化" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="730" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="q3EU0tbVYxhkbZcssHCq-12" value="地铁" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="260" y="860" width="240" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="q3EU0tbVYxhkbZcssHCq-13" value="检查口" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="414" y="870" width="80" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
